@@ -1,12 +1,11 @@
-from server.core.models import User
-from server.core.permissions import CreateOnlyPermissions
-from server.core.serializers import (UserLoginSerializer, UserRegistrationSerializer,
-                              UserSerializer)
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-from rest_framework import generics, mixins, permissions, status, viewsets
+from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+
+from server.core.serializers import (UserLoginSerializer,
+                                     UserRegistrationSerializer)
 
 
 def index(request):
@@ -20,7 +19,8 @@ class UserLoginView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         """
-        Validate user credentials, login, and return serialized user + auth token.
+        Validate user credentials, login, and return
+        serialized user + auth token.
         """
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -29,7 +29,10 @@ class UserLoginView(generics.GenericAPIView):
         # Get the user entity, from which we can get (or create) the auth token
         user = authenticate(**serializer.validated_data)
         if user is None:
-            raise ValidationError(detail="Incorrect email and password combination. Please try again.")
+            raise ValidationError(
+                detail="Incorrect email and password combination. "
+                       "Please try again."
+            )
 
         response_data = UserLoginSerializer.login(user, request)
         return Response(response_data)
@@ -45,7 +48,8 @@ class UserRegisterView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         """
-        Validate potential new user data, login if successful, and return serialized user + auth token.
+        Validate potential new user data, login if successful,
+        and return serialized user + auth token.
         """
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)

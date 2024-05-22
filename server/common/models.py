@@ -5,7 +5,8 @@ from django.db import models
 
 class AbstractBaseModel(models.Model):
     """
-    An abstract model with fields/properties that should belong to all our models.
+    An abstract model with fields/properties that should belong to all
+    our models.
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

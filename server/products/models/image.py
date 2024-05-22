@@ -4,9 +4,9 @@ from django.db import models
 from django.db.models import Model
 from django.dispatch import receiver
 
-from server.utils import custom_fields
 from server.products.models.product import Product
 from server.settings import IN_PROD, IN_STAGING
+from server.utils import custom_fields
 
 
 class ImageInstance(models.Model):

@@ -1,6 +1,6 @@
-from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class UserRegistrationTestCase(APITestCase):
@@ -18,17 +18,23 @@ class UserRegistrationTestCase(APITestCase):
         data = {
             'email': '',
             'password': '',
-            'first_name': 'nsadlkldsakndsaldnlsakndlksndsandlfnlfsanlflkasfnfafsafslkngklngaslsgnlgsaknngaslkasgn'
-                          'gsalkgnlsganlksagnlagsngaslngaslkngslkgasnglknalkgnslnglkasnglknglkasnglsnsaglngasnlsglsna'
-                          'sk agk sg glnglnaslgnglanlgknsalknglkansglasnglasnglkasnglsanglsanglkslknglsanglksnglsa'
-                          'asjksanlkgnaslkgnaslnglkgnlskgnlsalgnglaksnlgsalnglasnlasnglkasnglnsglsnaglksangalskngl',
+            'first_name': 'nsadlkldsakndsaldnlsakndlksndsandlfnlfsanlflkas'
+                          'fnfafsafslkngklngaslsgnlgsaknngaslkasgn'
+                          'gsalkgnlsganlksagnlagsngaslngaslkngslkga'
+                          'snglknalkgnslnglkasnglknglkasnglsnsaglngasnlsglsna'
+                          'sk agk sg glnglnaslgnglanlgknsalknglkansgl'
+                          'asnglasnglkasnglsanglsanglkslknglsanglksnglsa'
+                          'asjksanlkgnaslkgnaslnglkgnlskgnlsalgnglaksnl'
+                          'gsalnglasnlasnglkasnglnsglsnaglksangalskngl',
         }
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(len(response.data.keys()), 3)
-        print("Invalid email & password & other fields optional but less than 255 PASSED")
+        print("Invalid email & password & other "
+              "fields optional but less than 255 PASSED")
 
-        # Invalid email & valid password & other fields optional but less than 255
+        # Invalid email & valid password & other fields
+        # optional but less than 255
         data = {
             'email': 'mail@mail',
             'password': self.valid_user_password,
@@ -36,39 +42,52 @@ class UserRegistrationTestCase(APITestCase):
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(len(response.data.keys()), 1)
-        self.assertEqual(response.data['email'][0], "Enter a valid email address.")
-        print("Invalid email & valid password & other fields optional but less than 255 PASSED")
+        self.assertEqual(response.data['email'][0],
+                         "Enter a valid email address.")
+        print("Invalid email & valid password & "
+              "other fields optional but less than 255 PASSED")
 
-        # Valid email & invalid password & other fields optional but less than 255 - Stage 1
+        # Valid email & invalid password & other fields optional
+        # but less than 255 - Stage 1
         data = {
             'email': self.valid_user_email,
             'password': 'asd',
-            'first_name': 'nsadlkldsakndsaldnlsakndlksndsandlfnlfsanlflkasfnfafsafslkngklngaslsgnlgsaknngaslkasgn'
-                          'gsalkgnlsganlksagnlagsngaslngaslkngslkgasnglknalkgnslnglkasnglknglkasnglsnsaglngasnlsglsna'
-                          'sk agk sg glnglnaslgnglanlgknsalknglkansglasnglasnglkasnglsanglsanglkslknglsanglksnglsa'
-                          'asjksanlkgnaslkgnaslnglkgnlskgnlsalgnglaksnlgsalnglasnlasnglkasnglnsglsnaglksangalskngl',
+            'first_name': 'nsadlkldsakndsaldnlsakndlksndsandlfnlfsanlflk'
+                          'asfnfafsafslkngklngaslsgnlgsaknngaslkasgn'
+                          'gsalkgnlsganlksagnlagsngaslngaslkngslkgasnglk'
+                          'nalkgnslnglkasnglknglkasnglsnsaglngasnlsglsna'
+                          'sk agk sg glnglnaslgnglanlgknsalknglkansglasn'
+                          'glasnglkasnglsanglsanglkslknglsanglksnglsa'
+                          'asjksanlkgnaslkgnaslnglkgnlskgnlsalgnglaksnlgs'
+                          'alnglasnlasnglkasnglnsglsnaglksangalskngl',
         }
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(len(response.data.keys()), 1)
         self.assertEqual(response.data['first_name'][0],
                          "Ensure this field has no more than 255 characters.")
-        print("Valid email & invalid password & other fields optional but less than 255 - Stage 1 PASSED")
+        print("Valid email & invalid password & other fields "
+              "optional but less than 255 - Stage 1 PASSED")
 
-        # Valid email & invalid password & other fields optional but less than 255 - Stage 2
+        # Valid email & invalid password & other fields optional
+        # but less than 255 - Stage 2
         data = {
             'email': self.valid_user_email,
             'password': 'asd',
-            'first_name': 'asjksanlkgnaslkgnaslnglkgnlskgnlsalgnglaksnlgsalnglasnlasnglkasnglnsglsnaglksangalskngl',
+            'first_name': 'asjksanlkgnaslkgnaslnglkgnlskgnlsalgngla'
+                          'ksnlgsalnglasnlasnglkasnglnsglsnaglksangalskngl',
         }
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(len(response.data.keys()), 1)
         self.assertEqual(response.data['non_field_errors'][0],
-                         "This password is too short. It must contain at least 8 characters.")
-        print("Valid email & invalid password & other fields optional but less than 255 - Stage 2 PASSED")
+                         "This password is too short. It must "
+                         "contain at least 8 characters.")
+        print("Valid email & invalid password & other fields "
+              "optional but less than 255 - Stage 2 PASSED")
 
-        # Valid email & password & other fields optional but less than 255 (Success & Login)
+        # Valid email & password & other fields optional but
+        # less than 255 (Success & Login)
         data = {
             'email': self.valid_user_email,
             'password': self.valid_user_password,
@@ -80,4 +99,5 @@ class UserRegistrationTestCase(APITestCase):
         self.assertEqual(response.data['first_name'], "mike")
         self.assertEqual(response.data['email'], self.valid_user_email)
         self.assertIn("token", list(response.data.keys()))
-        print("Valid email & password & other fields optional but less than 255 PASSED")
+        print("Valid email & password & other fields optional but "
+              "less than 255 PASSED")

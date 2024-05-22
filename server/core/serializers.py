@@ -26,7 +26,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
         """
         Log-in user and append authentication token to serialized response.
         """
-        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+        login(
+            request, user, backend="django.contrib.auth.backends.ModelBackend"
+        )
         auth_token, token_created = Token.objects.get_or_create(user=user)
         serializer = UserSerializer(user, context={"request": request})
         response_data = serializer.data
