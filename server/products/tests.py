@@ -27,7 +27,8 @@ class ProductsTestCase(APITestCase):
             user=cls.user1
         )
         cls.url_detail = reverse(
-            "products:detail-update", kwargs={'pk': cls.base_product.id}
+            "products:detail-update-destroy",
+            kwargs={'pk': cls.base_product.id}
         )
 
     def test_listing(self):

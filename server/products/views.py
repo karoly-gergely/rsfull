@@ -6,7 +6,7 @@ from server.products.serializers import (ProductDetailSerializer,
                                          ProductListSerializer)
 
 
-class ProductsListCreateView(generics.ListCreateAPIView):
+class ProductListCreateView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, )
     serializer_class = ProductListSerializer
     queryset = Product.objects.all()
@@ -19,7 +19,7 @@ class ProductsListCreateView(generics.ListCreateAPIView):
         )
 
 
-class ProductsDetailUpdateView(
-    generics.RetrieveUpdateAPIView, ProductsListCreateView
+class ProductDetailUpdateDestroyView(
+    generics.RetrieveUpdateDestroyAPIView, ProductListCreateView
 ):
     serializer_class = ProductDetailSerializer
