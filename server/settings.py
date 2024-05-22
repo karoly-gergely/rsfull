@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # Local
     "server.common",
     "server.core",
+    "server.products",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -183,10 +184,8 @@ if DEBUG:  # for testing
 # Static files (CSS, JavaScript, Images)
 #
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media-files")
 
 STATIC_URL = "/static/"
-MEDIA_URL = "/media/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "./client/dist/static"),
 ]
@@ -296,3 +295,20 @@ LOGGING = {
 
 # Popular testing framework that allows logging to stdout while running unit tests
 TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
+# FILE STORAGE
+MEDIA_URL = '/'
+MEDIAFILES_LOCATION = 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+if IN_PROD or IN_STAGING:
+    # S3 storage
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_QUERYSTRING_AUTH = False
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+    MEDIA_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN,
+                                        MEDIAFILES_LOCATION)
+    DEFAULT_FILE_STORAGE = 'server.utils.custom_storages.MediaStorage'
+    AWS_S3_SIGNATURE_VERSION = 's3v4'

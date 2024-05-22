@@ -213,3 +213,6 @@ tags
 .idea/
 
 .pytest_cache/
+
+# Media files
+media/**
