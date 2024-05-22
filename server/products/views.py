@@ -2,7 +2,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from server.products.models import Product
-from server.products.serializers import ProductListSerializer
+from server.products.serializers import (ProductDetailSerializer,
+                                         ProductListSerializer)
 
 
 class ProductsListCreateView(generics.ListCreateAPIView):
@@ -16,3 +17,9 @@ class ProductsListCreateView(generics.ListCreateAPIView):
         return queryset.filter(
             user=self.request.user
         )
+
+
+class ProductsDetailUpdateView(
+    generics.RetrieveUpdateAPIView, ProductsListCreateView
+):
+    serializer_class = ProductDetailSerializer
