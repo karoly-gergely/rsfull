@@ -13,10 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENVIRONMENT: ci
+      SECRET_KEY: secret-key-example
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      DJANGO_SETTINGS_MODULE: server.settings
+      LOG_DIR: ''
+      ALLOWED_HOSTS: *
+      DJANGO_LOG_LEVEL: INFO
       VERSION: 0.0.1
-      ALLOWED_HOSTS: '*'
-      SECRET_KEY: 'example-secret-key'
-      DATABASE_URL: postgres://USER:PASS@DB_HOST:5432/DB_NAME
+      DEBUG: False
+      CURRENT_DOMAIN: localhost
+      SMTP_USER: ''
+      SMTP_PASSWORD: ''
+      SMTP_HOST: 'smtp.mailgun.org'
+      SMTP_VALID_TESTING_DOMAINS: 'revsetter.com'
 
     strategy:
       max-parallel: 1
@@ -36,8 +45,7 @@ jobs:
         pipenv install
     - name: Generate Docs
       run: |
-        pipenv shell
-        python manage.py spectacular --file schema.yaml
+        pipenv run python manage.py spectacular --color --file schema.yaml
     - name: Swagger UI
       id: swagger-ui-action
       uses: Legion2/swagger-ui-action@v1

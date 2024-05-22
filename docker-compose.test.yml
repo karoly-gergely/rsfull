@@ -25,7 +25,7 @@ services:
             - LOG_DIR=''
             - ALLOWED_HOSTS=*
             - DJANGO_LOG_LEVEL=INFO
-            - VERSION=0.0.0
+            - VERSION=0.0.1
             - DEBUG=False
             - CURRENT_DOMAIN=localhost
             - SMTP_USER=''
