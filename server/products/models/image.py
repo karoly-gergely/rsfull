@@ -4,16 +4,21 @@ from django.db import models
 from django.db.models import Model
 from django.dispatch import receiver
 
+from server.common.models import AbstractBaseModel
 from server.products.models.product import Product
 from server.settings import IN_PROD, IN_STAGING
 from server.utils import custom_fields
 
 
-class ImageInstance(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+class ImageInstance(AbstractBaseModel):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,
+                                related_name='images')
     s3_image = custom_fields.UrlRetrieveOnlyFileField(upload_to='images',
                                                       null=True,
                                                       blank=True)
+
+    class Meta:
+        ordering = ('datetime_created', )
 
     def __str__(self):
         return f"Image {self.id}, {self.s3_image} || {self.product}"
