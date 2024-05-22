@@ -21,15 +21,14 @@ services:
             - ENVIRONMENT=ci
             - SECRET_KEY=secret-key-example
             - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
-            - DJANGO_SETTINGS_MODULE=telemetry_dashboard.settings
+            - DJANGO_SETTINGS_MODULE=server.settings
             - LOG_DIR=
             - ALLOWED_HOSTS=*
             - DJANGO_LOG_LEVEL=INFO
             - VERSION=0.0.0
             - DEBUG=
         command: >
-            bash -c "pipenv run python manage.py test"
-            # TODO: add flake8 validation
+            bash -c "pipenv run flake8 && pipenv run python manage.py test"
         volumes:
             - .:/build
         networks:
