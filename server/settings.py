@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
     "DEFAULT_VERSION": "1.0",
     "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",
 }
-if DEBUG:  # for testing
+if DEBUG or IN_DEV:  # for testing
     REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append("rest_framework.authentication.SessionAuthentication")
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append("rest_framework.renderers.BrowsableAPIRenderer")
 #
