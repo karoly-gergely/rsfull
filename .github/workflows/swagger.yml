@@ -12,16 +12,16 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: ci
-      SECRET_KEY: secret-key-example
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-      DJANGO_SETTINGS_MODULE: server.settings
+      ENVIRONMENT: 'ci'
+      SECRET_KEY: 'secret-key-example'
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/postgres'
+      DJANGO_SETTINGS_MODULE: 'server.settings'
       LOG_DIR: ''
-      ALLOWED_HOSTS: *
-      DJANGO_LOG_LEVEL: INFO
-      VERSION: 0.0.1
-      DEBUG: False
-      CURRENT_DOMAIN: localhost
+      ALLOWED_HOSTS: '*'
+      DJANGO_LOG_LEVEL: 'INFO'
+      VERSION: '0.0.1'
+      DEBUG: 'False'
+      CURRENT_DOMAIN: 'localhost'
       SMTP_USER: ''
       SMTP_PASSWORD: ''
       SMTP_HOST: 'smtp.mailgun.org'
