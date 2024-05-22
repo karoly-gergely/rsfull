@@ -28,6 +28,10 @@ services:
             - VERSION=0.0.0
             - DEBUG=False
             - CURRENT_DOMAIN=http://localhost
+            - SMTP_USER=''
+            - SMTP_PASSWORD=''
+            - SMTP_HOST='smtp.mailgun.org'
+            - SMTP_VALID_TESTING_DOMAINS='revsetter.com'
         command: >
             bash -c "pipenv run flake8 && pipenv run python manage.py test"
         volumes:
