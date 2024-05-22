@@ -74,7 +74,7 @@ For additional credit, consider implementing the following features:
    - Ensure the deployment process is documented and reproducible.
 
 6. **Documentation:**
-   - Provide documentation for the API endpoints.
+   - Provide documentation for the API endpoints. -> generate schema locally using `./manage.py spectacular --color --file schema.yml --validate`
 
 **Note:** Pay attention to both the project description and the existing codebase for additional insights and requirements.
 

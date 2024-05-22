@@ -1,4 +1,9 @@
+from decimal import Decimal
+from typing import Optional
+
 from django.db import transaction
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from server.products.enums import CurrencyChoices
@@ -10,7 +15,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     thumbnail = serializers.SerializerMethodField(read_only=True)
     name = serializers.CharField(max_length=255, required=True)
     price = serializers.DecimalField(
-        min_value=0.0, decimal_places=2, max_digits=11, required=True
+        min_value=Decimal(0), decimal_places=2, max_digits=11, required=True
     )
     currency = serializers.ChoiceField(
         required=True, allow_blank=False,
@@ -34,7 +39,8 @@ class ProductListSerializer(serializers.ModelSerializer):
             "id",
         )
 
-    def get_thumbnail(self, obj):
+    @extend_schema_field(ImageInstanceSerializer)
+    def get_thumbnail(self, obj) -> Optional[ImageInstance]:
         first_image = obj.images.first()
         if first_image:
             return ImageInstanceSerializer(first_image).data

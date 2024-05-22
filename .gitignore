@@ -216,3 +216,6 @@ tags
 
 # Media files
 media/**
+
+# API docs
+schema.yml

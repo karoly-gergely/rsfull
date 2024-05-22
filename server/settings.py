@@ -312,3 +312,13 @@ if IN_PROD or IN_STAGING:
                                         MEDIAFILES_LOCATION)
     DEFAULT_FILE_STORAGE = 'server.utils.custom_storages.MediaStorage'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+# API DOCS
+INSTALLED_APPS += ['drf_spectacular', ]
+REST_FRAMEWORK['DEFAULT_SCHEMA_CLASS'] = 'drf_spectacular.openapi.AutoSchema'
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'RS FULL STACK API',
+    'DESCRIPTION': 'Dummy Project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': True,
+}

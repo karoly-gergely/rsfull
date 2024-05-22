@@ -31,6 +31,7 @@ pytest-sugar = "==0.9.4"  # https://github.com/Frozenball/pytest-sugar
 flake8-isort = "*"
 django-currentuser = "*"
 django-storages = "*"
+drf-spectacular = "*"
 
 [requires]
 python_version = "3.9"
