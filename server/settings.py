@@ -14,7 +14,7 @@ def _env_get_required(setting_name):
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
-IN_DEV = ENVIRONMENT == "development"
+IN_DEV = ENVIRONMENT in ["development", "ci"]
 IN_STAGING = ENVIRONMENT == "staging"
 IN_PROD = ENVIRONMENT == "production"
 

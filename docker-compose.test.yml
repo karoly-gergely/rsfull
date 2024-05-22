@@ -27,7 +27,7 @@ services:
             - DJANGO_LOG_LEVEL=INFO
             - VERSION=0.0.0
             - DEBUG=False
-            - CURRENT_DOMAIN=http://localhost
+            - CURRENT_DOMAIN=localhost
             - SMTP_USER=''
             - SMTP_PASSWORD=''
             - SMTP_HOST='smtp.mailgun.org'
