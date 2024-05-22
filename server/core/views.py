@@ -35,4 +35,24 @@ class UserLoginView(generics.GenericAPIView):
         return Response(response_data)
 
 
-# TODO Add endpoints here
+class UserRegisterView(generics.CreateAPIView):
+    serializer_class = UserRegistrationSerializer
+    authentication_classes = ()
+    permission_classes = ()
+
+    def perform_create(self, serializer):
+        return serializer.save()
+
+    def create(self, request, *args, **kwargs):
+        """
+        Validate potential new user data, login if successful, and return serialized user + auth token.
+        """
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # If the serializer is valid, then the data given is valid.
+        # Get the user entity, from the serializer's creation response
+        user = self.perform_create(serializer)
+
+        response_data = UserLoginSerializer.login(user, request)
+        return Response(response_data, status=status.HTTP_201_CREATED)

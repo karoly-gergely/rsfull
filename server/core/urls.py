@@ -11,9 +11,16 @@ if settings.DEBUG:
 
 # router.register("users", core_views.UserViewSet)
 
+app_name = "core"
+
 urlpatterns = [
     path("api/", include(router.urls)),
+
+    # CUSTOM AUTH
     path("api/login/", core_views.UserLoginView.as_view()),
+    path("api/register/", core_views.UserRegisterView.as_view(), name="register"),
+
+    # REST AUTH
     path(r"api/logout/", rest_auth_views.LogoutView.as_view()),
     path(
         r"api/password/reset/confirm/",
