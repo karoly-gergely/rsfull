@@ -28,7 +28,7 @@ services:
             - VERSION=0.0.0
             - DEBUG=
         command: >
-            bash -c "python manage.py test"
+            bash -c "pipenv run python manage.py test"
             # TODO: add flake8 validation
         volumes:
             - .:/build
