@@ -1,0 +1,17 @@
+name: DRF CDI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ci
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test API Of RS FullStack
+        run: docker-compose -f docker-compose.test.yml run test
