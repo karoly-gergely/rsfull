@@ -28,7 +28,7 @@ services:
             - VERSION=0.0.0
             - DEBUG=
         command: >
-            bash -c "flake8 && python manage.py test"
+            bash -c "pipenv shell && flake8 && python manage.py test"
         volumes:
             - .:/build
         networks:

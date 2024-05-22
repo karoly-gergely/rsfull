@@ -2,7 +2,6 @@ from decimal import Decimal
 from typing import Optional
 
 from django.db import transaction
-from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
