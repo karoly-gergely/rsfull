@@ -1,1 +1,0 @@
-import{_ as e,o as s,c as o,a as t}from"./index-BXjh5njC.js";const c={},a={class:"about"},_=t("h1",null,"This is about page",-1),r=[_];function n(l,i){return s(),o("div",a,[...r])}const d=e(c,[["render",n],["__file","/Users/karolygergely/Downloads/rs_fullstack/client/src/views/About.vue"]]);export{d as default};
