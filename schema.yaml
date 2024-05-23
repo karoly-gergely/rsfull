@@ -2,7 +2,9 @@ openapi: 3.0.3
 info:
   title: RS FULL STACK API
   version: 1.0.0
-  description: Dummy Project
+  description: A comprehensive product gallery application enabling users to register,
+    log in, and manage (add/update/delete) products. Each product should include attributes
+    such as name, price, description, and images.
 paths:
   /api/login/:
     post:
@@ -388,6 +390,19 @@ paths:
           description: ''
 components:
   schemas:
+    BaseUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        full_name:
+          type: string
+          readOnly: true
+      required:
+      - full_name
+      - id
     CurrencyEnum:
       enum:
       - $
@@ -522,6 +537,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageInstance'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/BaseUser'
+          readOnly: true
     ProductDetail:
       type: object
       properties:
@@ -544,12 +563,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageInstance'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/BaseUser'
+          readOnly: true
       required:
       - currency
       - id
-      - images
       - name
       - price
+      - user
     ProductList:
       type: object
       properties:
@@ -573,12 +596,17 @@ components:
           writeOnly: true
         currency:
           $ref: '#/components/schemas/CurrencyEnum'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/BaseUser'
+          readOnly: true
       required:
       - currency
       - id
       - name
       - price
       - thumbnail
+      - user
     UserLogin:
       type: object
       properties:
