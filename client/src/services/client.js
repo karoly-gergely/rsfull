@@ -12,13 +12,13 @@ class ApiService {
   constructor() {
     console.debug(
       `API Service for ${
-        import.meta.env.VUE_APP_BASE_API_URL ? import.meta.env.VUE_APP_BASE_API_URL : 'http://localhost:8080'
+        import.meta.env.VITE_VUE_APP_BASE_API_URL ? import.meta.env.VITE_VUE_APP_BASE_API_URL : 'http://localhost:8080'
       }`,
     )
 
     ApiService.session = axios.create({
-      baseURL: import.meta.env.VUE_APP_BASE_API_URL
-        ? import.meta.env.VUE_APP_BASE_API_URL
+      baseURL: import.meta.env.VITE_VUE_APP_BASE_API_URL
+        ? import.meta.env.VITE_VUE_APP_BASE_API_URL
         : 'http://localhost:8080',
       headers: {
         'X-CSRFToken': readCookie('csrftoken'),
