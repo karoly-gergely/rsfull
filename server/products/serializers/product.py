@@ -5,12 +5,14 @@ from django.db import transaction
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
+from server.core.serializers import BaseUserSerializer
 from server.products.enums import CurrencyChoices
 from server.products.models import ImageInstance, Product
 from server.products.serializers.image import ImageInstanceSerializer
 
 
 class ProductListSerializer(serializers.ModelSerializer):
+    user = BaseUserSerializer(read_only=True)
     thumbnail = serializers.SerializerMethodField(read_only=True)
     name = serializers.CharField(max_length=255, required=True)
     price = serializers.DecimalField(
@@ -33,6 +35,7 @@ class ProductListSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "currency",
+            "user",
         )
         read_only_fields = (
             "id",
@@ -99,7 +102,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(ProductListSerializer):
-    images = ImageInstanceSerializer(many=True)
+    images = ImageInstanceSerializer(many=True, required=False)
     description = serializers.CharField(required=False)
 
     class Meta:
@@ -111,6 +114,7 @@ class ProductDetailSerializer(ProductListSerializer):
             "description",
             "currency",
             "images",
+            "user",
         )
         read_only_fields = (
             "id",

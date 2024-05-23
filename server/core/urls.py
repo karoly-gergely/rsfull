@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path, re_path
+from django.urls import include, path
 from rest_auth import views as rest_auth_views
 from rest_framework import routers
 
@@ -9,8 +9,6 @@ from server.core import views as core_views
 router = routers.SimpleRouter()
 if settings.DEBUG:
     router = routers.DefaultRouter()
-
-# router.register("users", core_views.UserViewSet)
 
 app_name = "core"
 
@@ -43,7 +41,3 @@ if settings.DEBUG:  # pragma: no cover
         settings.STATIC_URL, document_root=settings.STATIC_ROOT
     )
     urlpatterns += [path("api-auth/", include("rest_framework.urls"))]
-
-urlpatterns += [
-    re_path(r".*", core_views.index),
-]

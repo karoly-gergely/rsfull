@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third Party
+    "corsheaders",
     "django_nose",
     "rest_framework",
     "rest_framework.authtoken",
@@ -70,6 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -233,7 +235,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # i.e. 2.5 MB
 
 # Maximum size in bytes of request data (excluding file uploads) that will be
 # read before a SuspiciousOperation (RequestDataTooBig) is raised.
-DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # i.e. 100 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # i.e. 10 MB
 
 # ADMIN
 # ------------------------------------------------------------------------------
@@ -250,8 +252,16 @@ if not IN_DEV:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     MIDDLEWARE += ["django.middleware.security.SecurityMiddleware"]
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_HSTS_SECONDS = 60
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    X_FRAME_OPTIONS = 'DENY'
 
-
+    ADMINS += [
+        ('Gergely Karoly-Bela', 'karoly.gergely@spiderlinked.com'),
+    ]
 #
 # Custom logging configuration
 #
@@ -318,7 +328,25 @@ INSTALLED_APPS += ['drf_spectacular', ]
 REST_FRAMEWORK['DEFAULT_SCHEMA_CLASS'] = 'drf_spectacular.openapi.AutoSchema'
 SPECTACULAR_SETTINGS = {
     'TITLE': 'RS FULL STACK API',
-    'DESCRIPTION': 'Dummy Project',
+    'DESCRIPTION': 'A comprehensive product gallery application enabling '
+                   'users to register, log in, and manage '
+                   '(add/update/delete) products. Each product should '
+                   'include attributes such as name, price, description, '
+                   'and images.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': True,
 }
+
+# Locales
+LANGUAGES = [('en', 'English'), ]
+LOCALE_PATHS = os.path.join(os.path.dirname(__file__), "locale"),
+
+# CORS
+if IN_PROD or IN_STAGING:
+    CORS_ORIGIN_WHITELIST = os.environ.get('CORS_WHITELIST', '').split(', '),
+    CORS_ORIGIN_REGEX_WHITELIST = [
+        r'%s' % regex for regex
+        in os.environ.get('CORS_WHITELIST_REGEX', '').split(', ')
+    ]
+else:
+    CORS_ALLOW_ALL_ORIGINS = True

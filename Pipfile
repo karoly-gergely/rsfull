@@ -32,6 +32,7 @@ flake8-isort = "*"
 django-currentuser = "*"
 django-storages = "*"
 drf-spectacular = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.9"

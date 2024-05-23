@@ -1,15 +1,10 @@
 from django.contrib.auth import authenticate
-from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from server.core.serializers import (UserLoginSerializer,
                                      UserRegistrationSerializer)
-
-
-def index(request):
-    return render(request, "index.html")
 
 
 class UserLoginView(generics.GenericAPIView):

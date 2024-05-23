@@ -6,6 +6,27 @@ from rest_framework.authtoken.models import Token
 from .models import User
 
 
+class BaseUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "full_name",
+        )
+
+
+class UserSerializer(BaseUserSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "full_name",
+        )
+
+
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(allow_blank=False, required=True)
     password = serializers.CharField(allow_blank=False, required=True)
@@ -57,15 +78,3 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            "id",
-            "email",
-            "first_name",
-            "last_name",
-            "full_name",
-        )
