@@ -343,7 +343,7 @@ LOCALE_PATHS = os.path.join(os.path.dirname(__file__), "locale"),
 
 # CORS
 if IN_PROD or IN_STAGING:
-    CORS_ORIGIN_WHITELIST = os.environ.get('CORS_WHITELIST', '').split(', '),
+    CORS_ORIGIN_WHITELIST = *os.environ.get('CORS_WHITELIST', '').split(', '),
     CORS_ORIGIN_REGEX_WHITELIST = [
         r'%s' % regex for regex
         in os.environ.get('CORS_WHITELIST_REGEX', '').split(', ')
