@@ -66,10 +66,10 @@ For additional credit, consider implementing the following features:
    - Ensure regular commits with clear and concise commit messages.
    - Push your project to GitHub and maintain a clean, organized repository.
 
-4. **Testing:**
+4. **Testing:** `./manage.py test`
    - Write comprehensive unit tests for the newly created API endpoints.
 
-5. **Deployment:**
+5. **Deployment:** -> automated -> just make sure code gets on the `main` branch
    - Deploy the project to a cloud service such as Heroku, AWS, or GCP.
    - Ensure the deployment process is documented and reproducible.
 
