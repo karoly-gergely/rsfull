@@ -3,10 +3,10 @@ import AuthService from '@/services/auth.service'
 
 const initialState = {
   status: {
-    isLoggedIn: !!localStorage.getItem('token')
+    isLoggedIn: false,
   },
-  user: JSON.parse(window.localStorage.getItem('user')),
-  token: window.localStorage.getItem('token')
+  user: null,
+  token: null
 }
 
 export const auth = {
@@ -55,8 +55,6 @@ export const auth = {
       state.status.isLoggedIn = true
       state.user = user
       state.token = user.token
-      window.localStorage.setItem('user', JSON.stringify(user))
-      window.localStorage.setItem('token', user.token)
     },
     loginFailure(state) {
       state.status.isLoggedIn = false

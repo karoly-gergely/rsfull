@@ -6,35 +6,19 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
 import HelloWorld from '@/components/HelloWorld.vue'
-
-const { mapState, mapActions } = createNamespacedHelpers('auth')
 
 export default {
   name: 'Home',
   components: {
     HelloWorld,
   },
-  computed: {
-    ...mapState({
-      user: state => state?.user,
-      token: state => state?.token,
-      isLoggedIn: state => state?.status?.isLoggedIn
-    })
-  },
-  methods: {
-    ...mapActions([
-      'login',
-    ])
-  },
+
   props: {},
   data() {
     return {}
   },
-  async created() {
-    await this.login({email: 'karoly.gergely@spiderlinked.com', password: 'SpiderLinked123!'});
-  },
+  async created() {},
 }
 </script>
 
